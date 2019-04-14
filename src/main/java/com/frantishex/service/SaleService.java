@@ -62,8 +62,6 @@ public class SaleService {
 
 	public void makeSale(Sale sale, Customer customer) {
 
-		
-
 		customer.setDiscount(cs.getDiscountFromTier(customer));
 
 		sale.setDiscount(cs.getDiscountFromTier(customer));
@@ -79,5 +77,6 @@ public class SaleService {
 		sale.setCustomer(customer);
 		em.persist(sale);
 	}
+	//// i have put some comments here 
 
 }
