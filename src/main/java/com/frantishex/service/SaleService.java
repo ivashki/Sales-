@@ -1,6 +1,8 @@
 package com.frantishex.service;
 
 import java.math.BigDecimal;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.frantishex.model.Customer;
+
 import com.frantishex.model.Sale;
 
 @Service
@@ -43,40 +46,35 @@ public class SaleService {
 
 	}
 
-	public void makeTier(Customer customer) {
-		if (customer.getTurnover().compareTo(new BigDecimal(100)) > 0
-				&& customer.getTurnover().compareTo(new BigDecimal(300)) < 0) {
-			customer.setTier("bronze");
-		} else if (customer.getTurnover().compareTo(new BigDecimal(300)) > 0
-				&& customer.getTurnover().compareTo(new BigDecimal(500)) < 0) {
-			customer.setTier("silver");
-		} else if (customer.getTurnover().compareTo(new BigDecimal(500)) > 0) {
-			customer.setTier("gold");
-		}
-	}
-
 	public Sale getSaleById(Long id) {
 		return em.find(Sale.class, id);
 
 	}
 
-	public void makeSale(Sale sale, Customer customer) {
+	public void setTheNewPrice(Sale sale) {
+		sale.setNewPrice(sale.getSalePrice()
+				.subtract((sale.getDiscount().divide(new BigDecimal("100")).multiply(sale.getSalePrice()))));
+	}
 
-		customer.setDiscount(cs.getDiscountFromTier(customer));
+	public Sale getSaleByCode(Long id) {
+		return getSaleById(id);
+	}
+
+	public void makeSale(Sale sale, Customer customer) {
 
 		sale.setDiscount(cs.getDiscountFromTier(customer));
 
-		customer.setTurnover((sale.getSalePrice()
-				.subtract((sale.getDiscount().divide(new BigDecimal("100")).multiply(sale.getSalePrice()))))
-						.add(customer.getTurnover()));
+		customer.setDiscount(cs.getDiscountFromTier(customer));
 
-		makeTier(customer);
+		customer.setTurnover(cs.setTurnover(sale, customer));
 
-		sale.setNewPrice(sale.getSalePrice()
-				.subtract((sale.getDiscount().divide(new BigDecimal("100")).multiply(sale.getSalePrice()))));
+		cs.makeTier(customer);
+
+		setTheNewPrice(sale);
+
 		sale.setCustomer(customer);
+
 		em.persist(sale);
 	}
-	//// i have put some comments here 
 
 }

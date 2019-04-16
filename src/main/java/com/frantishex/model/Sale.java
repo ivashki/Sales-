@@ -2,6 +2,7 @@ package com.frantishex.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.transaction.Transactional;
+
+import org.springframework.data.domain.PageRequest;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -65,5 +68,6 @@ public class Sale {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-
+	
+	
 }

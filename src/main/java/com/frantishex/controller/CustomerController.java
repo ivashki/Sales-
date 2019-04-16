@@ -24,32 +24,24 @@ public class CustomerController {
 	CustomerService cs;
 
 	@RequestMapping(path = "/customers", method = RequestMethod.GET)
-	public ResponseEntity<List<Customer>> getAllCustomers() {
+	public @ResponseBody ResponseEntity<List<Customer>> getAllCustomers() {
 		return new ResponseEntity<>(cs.getAll(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Customer> getCustomerById(@PathVariable(value = "id") Long id) {
+	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<List<Customer>> findWithName(@PathVariable(value = "name") String name) {
 
-		return new ResponseEntity<Customer>(cs.getCustomerById(id), HttpStatus.OK);
+		return new ResponseEntity<List<Customer>>(cs.findWithName(name), HttpStatus.OK);
 
 	}
 
-	@RequestMapping(value = "/createCustomer", method = RequestMethod.POST)
-	public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
+	@RequestMapping(value = "/createCustomer/{name}", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<Customer> createCustomer(@RequestBody Customer customer, String name) {
 		try {
-			return new ResponseEntity<Customer>(cs.createCustomer(), HttpStatus.OK);
+			return new ResponseEntity<Customer>(cs.createCustomer(name), HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<Customer>(cs.createCustomer(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Customer>(cs.createCustomer(name), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-	}
-
-	@RequestMapping(value = "/updateCustomer/{name}/{id}", method = RequestMethod.PUT)
-
-	public ResponseEntity<Customer> updateCustomer(@RequestBody String name, @PathVariable Long id) {
-		Customer customer = cs.getCustomerById(id);
-		return new ResponseEntity<Customer>(cs.updateCustomer(customer, name), HttpStatus.OK);
 
 	}
 

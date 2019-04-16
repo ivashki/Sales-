@@ -1,6 +1,7 @@
 package com.frantishex.controller;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.frantishex.model.Customer;
 import com.frantishex.model.Sale;
+import com.frantishex.model.SaleFacade;
 import com.frantishex.model.dto.SaleDTO;
 import com.frantishex.service.CustomerService;
 import com.frantishex.service.SaleService;
@@ -34,23 +36,27 @@ public class SalesController {
 	@Autowired
 	CustomerService cs;
 
+	/*
+	 * @Autowired private SaleFacade sf;
+	 */
+
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
-	public ResponseEntity<List<Sale>> getAllSales() {
+	public @ResponseBody ResponseEntity<List<Sale>> getAllSales() {
 		return new ResponseEntity<>(saleService.getAll(), HttpStatus.OK);
 	}
 
 	@RequestMapping(path = "/mostExpensiveSale", method = RequestMethod.GET)
-	public ResponseEntity<List<Sale>> getMostExpensiveSale() {
+	public @ResponseBody ResponseEntity<List<Sale>> getMostExpensiveSale() {
 		return new ResponseEntity<List<Sale>>(saleService.mostExpensive(), HttpStatus.OK);
 	}
 
 	@RequestMapping(path = "/leastExpensiveSale", method = RequestMethod.GET)
-	public ResponseEntity<List<Sale>> getLeastExpensiveSale() {
+	public @ResponseBody ResponseEntity<List<Sale>> getLeastExpensiveSale() {
 		return new ResponseEntity<List<Sale>>(saleService.leastExpensive(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Sale> getSaleById(@RequestParam Long id) {
+	public @ResponseBody ResponseEntity<Sale> getSaleById(@RequestParam Long id) {
 		try {
 			return new ResponseEntity<Sale>(saleService.getSaleById(id), HttpStatus.OK);
 		} catch (Exception e) {
@@ -65,16 +71,25 @@ public class SalesController {
 
 	}
 
+	/*
+	 * @RequestMapping(value = "/SALES/{id}", method = RequestMethod.GET)
+	 * public @ResponseBody ResponseEntity<SaleDTO> getSale(@PathVariable("id")
+	 * Long id) { SaleDTO sale = sf.getSaleById(id); return new
+	 * ResponseEntity<SaleDTO>(sale, HttpStatus.OK); }
+	 */
+
 	// It is not ready yet
+
 	@RequestMapping(value = "/getSalesForCustomer/{id}", method = RequestMethod.GET)
-	public List <SaleDTO> getAll(@PathVariable Long id) {
-		List<SaleDTO> dtos = new ArrayList<SaleDTO>();
+	public @ResponseBody ResponseEntity<Object> getAll(@PathVariable Long id) {
+
+		List<SaleDTO> dtos = new ArrayList<>();
 		List<Sale> sales = saleService.getSalesByCustomerId(id);
 		for (Sale sale : sales) {
 			dtos.add(SaleDTO.entityToDTO(sale));
 		}
-		return dtos;
-		
+		return new ResponseEntity<Object>(dtos, HttpStatus.OK);
+
 	}
 
 }
