@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,9 @@ public class CustomerService {
 
 	}
 
-	public List<Customer> findWithName(String name) {
-		return em.createQuery("SELECT c FROM Customer c WHERE c.name LIKE :name").setParameter("name", name)
-				.getResultList();
+	public List<Customer> getByName(String name) {
+		TypedQuery<Customer> query = em.createQuery("SELECT c FROM Customer c WHERE c.name=?1", Customer.class);
+		return query.setParameter(1, name).getResultList();
 	}
 
 	public BigDecimal getDiscountFromTier(Customer customer) {
@@ -52,9 +53,11 @@ public class CustomerService {
 						.add(customer.getTurnover()));
 	}
 
-	public Customer createCustomer(String name) {
-		Customer customer = new Customer();
-		customer.setName(name);
+	public Customer createCustomer(Customer customer) {
+		/*
+		 * Customer customer = new Customer(); customer.setName(name);
+		 */
+		
 		customer.setTurnover(customer.ZERO);
 		customer.setDiscount(customer.ZERO);
 		customer.setTier("default");
@@ -74,11 +77,8 @@ public class CustomerService {
 		}
 	}
 
-	public Customer updateCustomer(Customer customer, String name) {
-
-		customer.setName(name);
-		return em.merge(customer);
-
+	public void updateCustomer(Customer customer) {
+		em.merge(customer);
 	}
 
 }

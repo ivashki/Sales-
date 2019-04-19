@@ -1,4 +1,4 @@
-package com.frantishex.controller;
+/*package com.frantishex.controller;
 
 import java.util.List;
 
@@ -28,11 +28,9 @@ public class CustomerController {
 		return new ResponseEntity<>(cs.getAll(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<List<Customer>> findWithName(@PathVariable(value = "name") String name) {
-
-		return new ResponseEntity<List<Customer>>(cs.findWithName(name), HttpStatus.OK);
-
+	@RequestMapping(value = "/getCustomerByName", method = RequestMethod.GET)
+	public ResponseEntity<Customer> getBuyerByName(@RequestBody String name) {
+		return new ResponseEntity<Customer>(cs.getByName(name), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/createCustomer/{name}", method = RequestMethod.POST)
@@ -45,4 +43,4 @@ public class CustomerController {
 
 	}
 
-}
+}*/

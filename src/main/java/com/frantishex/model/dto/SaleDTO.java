@@ -2,53 +2,42 @@ package com.frantishex.model.dto;
 
 import java.math.BigDecimal;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
+import javax.validation.constraints.NotNull;
 
-import com.frantishex.model.Customer;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.frantishex.model.Sale;
 
 public class SaleDTO {
-	private Long id;
-	private BigDecimal salePrice;
-	private String customer;
 
-	public Long getId() {
-		return id;
+	@Autowired
+	private ModelMapper modelMapper = new ModelMapper();
+
+	@NotNull
+	private Long customerId;
+
+	@NotNull
+	private BigDecimal price;
+
+	public Long getCustomerId() {
+		return customerId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 
-	public BigDecimal getSalePrice() {
-		return salePrice;
+	public BigDecimal getPrice() {
+		return price;
 	}
 
-	public void setSalePrice(BigDecimal salePrice) {
-		this.salePrice = salePrice;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
-	public String getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(String customer) {
-		this.customer = customer;
-	}
-
-	public static SaleDTO entityToDTO(Sale sale) {
-		ModelMapper modelMapper = new ModelMapper();
-		modelMapper.addMappings(new PropertyMap<Sale, SaleDTO>() {
-			@Override
-			protected void configure() {
-				map().setCustomer(source.getCustomer().getName());
-				map().setId(source.getCustomer().getId());
-				map().setSalePrice(source.getSalePrice());
-			}
-
-		});
-		SaleDTO dto = modelMapper.map(sale, SaleDTO.class);
-		return dto;
+	public Sale convertToSale() {
+		Sale sale = modelMapper.map(this, Sale.class);
+		return sale;
 	}
 }

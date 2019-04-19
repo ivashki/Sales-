@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.frantishex.exceptions.NotFoundException;
 import com.frantishex.model.Customer;
 
 import com.frantishex.model.Sale;
@@ -30,10 +31,11 @@ public class SaleService {
 		return em.createQuery("select s from Sale s", Sale.class).getResultList();
 	}
 
-	public List<Sale> mostExpensive() {
-		return em.createQuery("Select s From Sale s Where s.salePrice = (Select max (x.salePrice) from Sale x)",
-				Sale.class).getResultList();
-	}
+	/*
+	 * public List<Sale> mostExpensive() { return em.
+	 * createQuery("Select s From Sale s Where s.salePrice = (Select max (x.salePrice) from Sale x)"
+	 * , Sale.class).getResultList(); }
+	 */
 
 	public List<Sale> leastExpensive() {
 		return em.createQuery("Select s From Sale s Where s.salePrice = (Select min (x.salePrice) from Sale x)",
@@ -60,21 +62,34 @@ public class SaleService {
 		return getSaleById(id);
 	}
 
-	public void makeSale(Sale sale, Customer customer) {
+	public Sale makeSale(Sale sale, Customer customer) throws NotFoundException {
 
-		sale.setDiscount(cs.getDiscountFromTier(customer));
+		if (cs.getCustomerById(sale.getCustomer().getId()) == null) {
+			throw new NotFoundException("Customer not found!");
+		} else {
 
-		customer.setDiscount(cs.getDiscountFromTier(customer));
+			sale.setDiscount(cs.getDiscountFromTier(customer));
 
-		customer.setTurnover(cs.setTurnover(sale, customer));
+			customer.setDiscount(cs.getDiscountFromTier(customer));
 
-		cs.makeTier(customer);
+			customer.setTurnover(cs.setTurnover(sale, customer));
 
-		setTheNewPrice(sale);
+			cs.makeTier(customer);
 
-		sale.setCustomer(customer);
+			setTheNewPrice(sale);
 
-		em.persist(sale);
+			sale.setCustomer(customer);
+
+			em.persist(sale);
+			return sale;
+		}
+
 	}
+
+	/*
+	 * public Sale createSale(Sale sale) { sale.setDiscount(sale.getSalePrice()
+	 * .subtract((sale.getSalePrice().multiply(sale.getDiscount())).divide(new
+	 * BigDecimal(100)))); em.persist(sale); return sale; }
+	 */
 
 }

@@ -1,4 +1,4 @@
-package com.frantishex.controller;
+/*package com.frantishex.controller;
 
 import java.util.ArrayList;
 
@@ -36,9 +36,9 @@ public class SalesController {
 	@Autowired
 	CustomerService cs;
 
-	/*
+	
 	 * @Autowired private SaleFacade sf;
-	 */
+	 
 
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<List<Sale>> getAllSales() {
@@ -71,12 +71,12 @@ public class SalesController {
 
 	}
 
-	/*
+	
 	 * @RequestMapping(value = "/SALES/{id}", method = RequestMethod.GET)
 	 * public @ResponseBody ResponseEntity<SaleDTO> getSale(@PathVariable("id")
 	 * Long id) { SaleDTO sale = sf.getSaleById(id); return new
 	 * ResponseEntity<SaleDTO>(sale, HttpStatus.OK); }
-	 */
+	 
 
 	// It is not ready yet
 
@@ -92,4 +92,4 @@ public class SalesController {
 
 	}
 
-}
+}*/
