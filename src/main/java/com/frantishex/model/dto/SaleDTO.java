@@ -15,17 +15,17 @@ public class SaleDTO {
 	private ModelMapper modelMapper = new ModelMapper();
 
 	@NotNull
-	private Long customerId;
+	private Long customer_id;
 
 	@NotNull
 	private BigDecimal price;
 
 	public Long getCustomerId() {
-		return customerId;
+		return customer_id;
 	}
 
 	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
+		this.customer_id = customerId;
 	}
 
 	public BigDecimal getPrice() {

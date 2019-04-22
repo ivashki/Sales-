@@ -12,16 +12,28 @@ public class CustomerDTO {
 	@Autowired
 	private static ModelMapper modelMapper = new ModelMapper();
 
-	@NotNull
-	private String name;
+	/*
+	 * @NotNull private String name;
+	 */
 
-	public String getName() {
+	@NotNull
+	private Long id;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/*public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
+	}*/
 
 	public Customer convertToCustomer() {
 		Customer customer = modelMapper.map(this, Customer.class);

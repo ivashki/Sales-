@@ -62,11 +62,14 @@ public class SaleService {
 		return getSaleById(id);
 	}
 
-	public Sale makeSale(Sale sale, Customer customer) throws NotFoundException {
+	public Sale makeSale(Sale sale/* , Customer customer */) throws NotFoundException {
 
 		if (cs.getCustomerById(sale.getCustomer().getId()) == null) {
 			throw new NotFoundException("Customer not found!");
 		} else {
+			//
+
+			Customer customer = cs.getCustomerById(sale.getCustomer().getId());
 
 			sale.setDiscount(cs.getDiscountFromTier(customer));
 

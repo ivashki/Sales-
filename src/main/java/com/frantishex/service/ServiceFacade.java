@@ -27,9 +27,9 @@ public class ServiceFacade {
 	@PersistenceContext
 	EntityManager em;
 
-	public Sale createSale(Sale sale, Customer customer) throws NotFoundException {
+	public Sale createSale(Sale sale/*, Customer customer*/) throws NotFoundException {
 
-		Sale bate = ss.makeSale(sale, customer);
+		Sale bate = ss.makeSale(sale/*, customer*/);
 		return bate;
 
 	}
