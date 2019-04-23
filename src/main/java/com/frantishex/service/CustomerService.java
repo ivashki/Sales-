@@ -26,7 +26,9 @@ public class CustomerService {
 	}
 
 	public Customer getCustomerById(Long id) {
-		return em.find(Customer.class, id);
+		// return em.find(Customer.class, id);
+		TypedQuery<Customer> query = em.createQuery("SELECT c FROM Customer c WHERE c.id=?1", Customer.class);
+		return query.setParameter(1, id).getSingleResult();
 
 	}
 
@@ -54,10 +56,7 @@ public class CustomerService {
 	}
 
 	public Customer createCustomer(Customer customer) {
-		/*
-		 * Customer customer = new Customer(); customer.setName(name);
-		 */
-		
+
 		customer.setTurnover(customer.ZERO);
 		customer.setDiscount(customer.ZERO);
 		customer.setTier("default");

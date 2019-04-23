@@ -31,8 +31,8 @@ public class Customer {
 
 	@JsonIgnore
 	private BigDecimal turnover;
-
-	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
+	@ManyToOne
 	@JoinColumn(name = "merchant_id", nullable = false)
 	private Merchant merchant;
 
@@ -51,7 +51,7 @@ public class Customer {
 	public void setTurnover(BigDecimal turnover) {
 		this.turnover = turnover;
 	}
-
+	
 	public void setId(Long id) {
 		this.id = id;
 	}

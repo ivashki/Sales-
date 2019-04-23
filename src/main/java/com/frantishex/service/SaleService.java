@@ -63,11 +63,11 @@ public class SaleService {
 	}
 
 	public Sale makeSale(Sale sale/* , Customer customer */) throws NotFoundException {
+		
 
 		if (cs.getCustomerById(sale.getCustomer().getId()) == null) {
 			throw new NotFoundException("Customer not found!");
 		} else {
-			//
 
 			Customer customer = cs.getCustomerById(sale.getCustomer().getId());
 
@@ -88,11 +88,10 @@ public class SaleService {
 		}
 
 	}
-
-	/*
-	 * public Sale createSale(Sale sale) { sale.setDiscount(sale.getSalePrice()
-	 * .subtract((sale.getSalePrice().multiply(sale.getDiscount())).divide(new
-	 * BigDecimal(100)))); em.persist(sale); return sale; }
-	 */
-
 }
+
+/*
+ * public Sale createSale(Sale sale) { sale.setDiscount(sale.getSalePrice()
+ * .subtract((sale.getSalePrice().multiply(sale.getDiscount())).divide(new
+ * BigDecimal(100)))); em.persist(sale); return sale; }
+ */

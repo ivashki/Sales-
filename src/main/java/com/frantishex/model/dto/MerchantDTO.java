@@ -5,26 +5,15 @@ import javax.validation.constraints.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.frantishex.model.Customer;
+import com.frantishex.model.Merchant;
 
-public class CustomerDTO {
+public class MerchantDTO {
 
 	@Autowired
 	private static ModelMapper modelMapper = new ModelMapper();
 
 	@NotNull
 	private String name;
-
-	@NotNull
-	private Long id;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -34,9 +23,9 @@ public class CustomerDTO {
 		this.name = name;
 	}
 
-	public Customer convertToCustomer() {
-		Customer customer = modelMapper.map(this, Customer.class);
-		return customer;
+	public Merchant convertToMerchant() {
+		Merchant merchant = modelMapper.map(this, Merchant.class);
+		return merchant;
 	}
 
 }
