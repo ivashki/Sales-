@@ -31,9 +31,16 @@ public class ServiceFacade {
 	@PersistenceContext
 	EntityManager em;
 
+	public Sale createSaleForCustomer(Sale sale) throws NotFoundException {
+
+		Sale bate = ss.makeSaleForCustomer(sale);
+		return bate;
+
+	}
+
 	public Sale createSale(Sale sale) throws NotFoundException {
 
-		Sale bate = ss.makeSale(sale);
+		Sale bate = ss.createSale(sale);
 		return bate;
 
 	}
@@ -47,7 +54,7 @@ public class ServiceFacade {
 	}
 
 	public List<Customer> getByName(String name) {
-		return cs.getByName(name)/* .get(0) */;
+		return cs.getByName(name);
 	}
 
 	public List<Customer> getAllCustomers() {

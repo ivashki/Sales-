@@ -1,7 +1,5 @@
 package com.frantishex.controller;
 
-import java.math.BigDecimal;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,7 @@ import com.frantishex.model.Merchant;
 import com.frantishex.model.dto.CustomerDTO;
 import com.frantishex.model.dto.MerchantDTO;
 import com.frantishex.model.dto.SaleDTO;
-
+import com.frantishex.model.dto.SaleDTO2;
 import com.frantishex.service.ServiceFacade;
 
 @org.springframework.web.bind.annotation.RestController
@@ -29,16 +27,6 @@ public class RestController {
 
 	@Autowired
 	private ServiceFacade sf;
-
-	/*
-	 * @RequestMapping(value = "/makeSale", method = RequestMethod.POST) public
-	 * ResponseEntity<String> makeSale(@RequestBody Sale sale, Long id) throws
-	 * NotFoundException { Customer customer = sf.getCustomerById(id);
-	 * sf.createSale(sale, customer); return new
-	 * ResponseEntity<String>("Sale made succesfully.", HttpStatus.OK);
-	 * 
-	 * }
-	 */
 
 	@RequestMapping(value = "/createMerchant", method = RequestMethod.POST)
 	public ResponseEntity<String> createMerchant(@RequestBody MerchantDTO merchantDTO) {
@@ -52,9 +40,9 @@ public class RestController {
 		return new ResponseEntity<String>("Buyer added succesfully.", HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/createSale", method = RequestMethod.POST)
-	public ResponseEntity<String> createSale(@RequestBody SaleDTO saleDTO) throws NotFoundException {
-		sf.createSale(saleDTO.convertToSale());
+	@RequestMapping(value = "/createSaleForCustomer", method = RequestMethod.POST)
+	public ResponseEntity<String> createSaleForCustomer(@RequestBody SaleDTO saleDTO) throws NotFoundException {
+		sf.createSaleForCustomer(saleDTO.convertToSale());
 		return new ResponseEntity<String>("Sale made succesfully.", HttpStatus.OK);
 	}
 
@@ -73,6 +61,12 @@ public class RestController {
 	public @ResponseBody ResponseEntity<List<Customer>> getAllCustomers() {
 		return new ResponseEntity<>(sf.getAllCustomers(), HttpStatus.OK);
 
+	}
+
+	@RequestMapping(value = "/createSale", method = RequestMethod.POST)
+	public ResponseEntity<String> createSale(@RequestBody SaleDTO2 saleDTO2) throws NotFoundException {
+		sf.createSale(saleDTO2.convertToSale());
+		return new ResponseEntity<String>("Sale made succesfully.", HttpStatus.OK);
 	}
 
 }

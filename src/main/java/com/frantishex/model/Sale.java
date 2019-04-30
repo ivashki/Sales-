@@ -1,4 +1,4 @@
-package com.frantishex.model;
+ package com.frantishex.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

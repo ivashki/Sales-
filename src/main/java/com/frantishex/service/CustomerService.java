@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.frantishex.model.Customer;
+import com.frantishex.model.Merchant;
 import com.frantishex.model.Sale;
 
 @Service

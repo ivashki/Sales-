@@ -62,11 +62,11 @@ public class SaleService {
 		return getSaleById(id);
 	}
 
-	public Sale makeSale(Sale sale/* , Customer customer */) throws NotFoundException {
-		
+	public Sale makeSaleForCustomer(Sale sale) throws NotFoundException {
 
 		if (cs.getCustomerById(sale.getCustomer().getId()) == null) {
 			throw new NotFoundException("Customer not found!");
+
 		} else {
 
 			Customer customer = cs.getCustomerById(sale.getCustomer().getId());
@@ -87,6 +87,13 @@ public class SaleService {
 			return sale;
 		}
 
+	}
+
+	public Sale createSale(Sale sale) {
+
+		em.persist(sale);
+
+		return sale;
 	}
 }
 

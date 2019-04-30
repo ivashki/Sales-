@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: MySalesProject
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: HP-PROBOOKi7
+Built-By: Ivo
 Implementation-Vendor-Id: com.frantish
-Build-Jdk: 1.8.0_201
+Build-Jdk: 1.8.0_60
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/com.frantish.sales
 Created-By: Maven Integration for Eclipse
