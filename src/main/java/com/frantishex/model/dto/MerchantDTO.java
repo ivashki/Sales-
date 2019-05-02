@@ -2,6 +2,7 @@ package com.frantishex.model.dto;
 
 import javax.validation.constraints.NotNull;
 
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 

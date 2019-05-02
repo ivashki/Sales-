@@ -2,16 +2,19 @@ package com.frantishex.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.transaction.Transactional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Transactional
 public class Customer {
 
 	public static final BigDecimal ZERO = new BigDecimal(0);
@@ -30,8 +33,8 @@ public class Customer {
 
 	@JsonIgnore
 	private BigDecimal turnover;
-	@JsonIgnore
-	@ManyToOne
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "merchant_id", nullable = false)
 	private Merchant merchant;
 

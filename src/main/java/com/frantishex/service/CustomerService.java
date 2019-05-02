@@ -8,9 +8,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.frantishex.exceptions.NotFoundException;
 import com.frantishex.model.Customer;
+import com.frantishex.model.Merchant;
 import com.frantishex.model.Sale;
 
 @Service
@@ -19,6 +22,9 @@ public class CustomerService {
 
 	@PersistenceContext
 	EntityManager em;
+
+	@Autowired
+	MerchantService ms;
 
 	public List<Customer> getAll() {
 		return em.createQuery("select c from Customer c", Customer.class).getResultList();
@@ -54,14 +60,22 @@ public class CustomerService {
 						.add(customer.getTurnover()));
 	}
 
-	public Customer createCustomer(Customer customer) {
-
+	public Customer createCustomer(Customer customer) throws NotFoundException {
+		
+		if (ms.getMerchantById(customer.getMerchant().getId()) == null) {
+			throw new NotFoundException("Merchant not found!");
+		}
+		Merchant merchant = ms.getMerchantById(customer.getMerchant().getId());
+		customer.setMerchant(merchant);
 		customer.setTurnover(customer.ZERO);
 		customer.setDiscount(customer.ZERO);
 		customer.setTier("default");
-		em.persist(customer);
+		em.merge(customer);
 		return customer;
 	}
+	
+	
+	
 
 	public void makeTier(Customer customer) {
 		if (customer.getTurnover().compareTo(new BigDecimal(100)) > 0

@@ -82,16 +82,10 @@ public class SaleService {
 
 	}
 
-	public Sale createSale(Sale sale) {
+	/*public Sale createSale(Sale sale) {
 
 		em.persist(sale);
 
 		return sale;
-	}
+	}*/
 }
-
-/*
- * public Sale createSale(Sale sale) { sale.setDiscount(sale.getSalePrice()
- * .subtract((sale.getSalePrice().multiply(sale.getDiscount())).divide(new
- * BigDecimal(100)))); em.persist(sale); return sale; }
- */

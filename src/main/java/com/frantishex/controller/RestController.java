@@ -35,9 +35,9 @@ public class RestController {
 	}
 
 	@RequestMapping(value = "/createCustomer", method = RequestMethod.POST)
-	public ResponseEntity<String> createCustomer(@RequestBody CustomerDTO customerDTO) {
+	public ResponseEntity<String> createCustomer(@RequestBody CustomerDTO customerDTO) throws NotFoundException {
 		sf.createCustomer(customerDTO.convertToCustomer());
-		return new ResponseEntity<String>("Buyer added succesfully.", HttpStatus.OK);
+		return new ResponseEntity<String>("Customer added succesfully.", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/createSaleForCustomer", method = RequestMethod.POST)
@@ -63,10 +63,12 @@ public class RestController {
 
 	}
 
-	@RequestMapping(value = "/createSale", method = RequestMethod.POST)
-	public ResponseEntity<String> createSale(@RequestBody SaleDTO2 saleDTO2) throws NotFoundException {
-		sf.createSale(saleDTO2.convertToSale());
-		return new ResponseEntity<String>("Sale made succesfully.", HttpStatus.OK);
-	}
+	/*
+	 * @RequestMapping(value = "/createSale", method = RequestMethod.POST)
+	 * public ResponseEntity<String> createSale(@RequestBody SaleDTO2 saleDTO2)
+	 * throws NotFoundException { sf.createSale(saleDTO2.convertToSale());
+	 * return new ResponseEntity<String>("Sale made succesfully.",
+	 * HttpStatus.OK); }
+	 */
 
 }

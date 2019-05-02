@@ -13,17 +13,22 @@ public class Merchant {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private String merchantName;
+	private String name;
 
-	public String getMerchantName() {
-		return merchantName;
+	public String getName() {
+		return name;
 	}
 
-	public void setMerchantName(String merchantName) {
-		this.merchantName = merchantName;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getId() {
 		return id;
 	}
+
 }
