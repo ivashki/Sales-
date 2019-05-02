@@ -1,5 +1,6 @@
 package com.frantishex.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -32,6 +33,12 @@ public class MerchantService {
 
 	public List<Merchant> getAll() {
 		return em.createQuery("select m from Merchant m", Merchant.class).getResultList();
+	}
+
+	public void updateGlobalDiscount(Long id, BigDecimal value) {
+		Merchant merchant = getMerchantById(id);
+		merchant.setGlobalDiscount(value);
+		em.merge(merchant);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.frantishex.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,20 @@ public class RestController {
 	public ResponseEntity<String> createMerchant(@RequestBody MerchantDTO merchantDTO) {
 		sf.createMerchant(merchantDTO.convertToMerchant());
 		return new ResponseEntity<String>("Merchant added succesfully.", HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/updateGlobalDiscountForMerchant", method = RequestMethod.POST)
+
+	public ResponseEntity<String> updateGlobalDiscountForMerchant(@RequestBody Long id, BigDecimal value) {
+		sf.updateGlobalDiscountForMerchant(id, value);
+		return new ResponseEntity<String>("Global Discount updated succesfully.", HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/updateDiscountForCustomer", method = RequestMethod.POST)
+
+	public ResponseEntity<String> updateDiscountForCustomer(@RequestBody Long id, BigDecimal value) {
+		sf.updatelDiscountForCustomer(id, value);
+		return new ResponseEntity<String>("Customer Discount updated succesfully.", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/createCustomer", method = RequestMethod.POST)

@@ -93,4 +93,11 @@ public class CustomerService {
 		em.merge(customer);
 	}
 
+	public void updateDiscount(Long id, BigDecimal value) {
+		Customer customer = getCustomerById(id);
+		customer.setDiscount(value);
+		em.merge(customer);
+		
+	}
+
 }

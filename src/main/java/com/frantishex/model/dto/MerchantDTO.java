@@ -1,7 +1,8 @@
 package com.frantishex.model.dto;
 
-import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
+import javax.validation.constraints.NotNull;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,17 @@ public class MerchantDTO {
 
 	@NotNull
 	private String name;
+
+	@NotNull
+	private BigDecimal globalDiscount;
+
+	public BigDecimal getGlobalDiscount() {
+		return globalDiscount;
+	}
+
+	public void setGlobalDiscount(BigDecimal globalDiscount) {
+		this.globalDiscount = globalDiscount;
+	}
 
 	public String getName() {
 		return name;

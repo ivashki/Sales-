@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.frantishex.exceptions.NotFoundException;
 import com.frantishex.model.Customer;
-
+import com.frantishex.model.Merchant;
 import com.frantishex.model.Sale;
 
 @Service
@@ -25,6 +25,9 @@ public class SaleService {
 
 	@Autowired
 	CustomerService cs;
+
+	@Autowired
+	MerchantService ms;
 
 	public List<Sale> getAll() {
 		return em.createQuery("select s from Sale s", Sale.class).getResultList();
@@ -64,10 +67,22 @@ public class SaleService {
 
 			Customer customer = cs.getCustomerById(sale.getCustomer().getId());
 
-			sale.setDiscount(cs.getDiscountFromTier(customer));
+			if (customer.getTier().equals("default")) {
 
-			customer.setDiscount(cs.getDiscountFromTier(customer));
+				sale.setDiscount(customer.getMerchant().getGlobalDiscount());
+				/*
+				 * customer.setDiscount(customer.getMerchant().getGlobalDiscount
+				 * ());
+				 */
+			} else {
 
+				sale.setDiscount(cs.getDiscountFromTier(customer));
+				/* customer.setDiscount(cs.getDiscountFromTier(customer)); */
+
+			}
+			if (customer.getDiscount() != null) {
+				sale.setDiscount(customer.getDiscount()); //
+			}
 			customer.setTurnover(cs.setTurnover(sale, customer));
 
 			cs.makeTier(customer);
@@ -82,10 +97,11 @@ public class SaleService {
 
 	}
 
-	/*public Sale createSale(Sale sale) {
-
-		em.persist(sale);
-
-		return sale;
-	}*/
+	/*
+	 * public Sale createSale(Sale sale) {
+	 * 
+	 * em.persist(sale);
+	 * 
+	 * return sale; }
+	 */
 }

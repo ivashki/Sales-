@@ -1,5 +1,7 @@
 package com.frantishex.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +16,16 @@ public class Merchant {
 	private Long id;
 
 	private String name;
+
+	private BigDecimal globalDiscount;
+
+	public BigDecimal getGlobalDiscount() {
+		return globalDiscount;
+	}
+
+	public void setGlobalDiscount(BigDecimal globalDiscount) {
+		this.globalDiscount = globalDiscount;
+	}
 
 	public String getName() {
 		return name;

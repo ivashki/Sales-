@@ -1,5 +1,6 @@
 package com.frantishex.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -68,6 +69,15 @@ public class ServiceFacade {
 
 	public List<Merchant> getAllMerchants() {
 		return ms.getAll();
+	}
+
+	public void updateGlobalDiscountForMerchant(Long id, BigDecimal value) {
+		ms.updateGlobalDiscount(id, value);
+		
+	}
+
+	public void updatelDiscountForCustomer(Long id, BigDecimal value) {
+		cs.updateDiscount(id,value);
 	}
 
 }
