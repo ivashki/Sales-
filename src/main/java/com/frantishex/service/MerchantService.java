@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.frantishex.model.Customer;
 import com.frantishex.model.Merchant;
 
 @Service

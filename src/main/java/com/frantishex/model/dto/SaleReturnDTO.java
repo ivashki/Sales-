@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
-import com.frantishex.model.Customer;
 import com.frantishex.model.Sale;
 
 public class SaleReturnDTO {

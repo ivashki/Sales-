@@ -2,7 +2,6 @@ package com.frantishex.model;
 
 import java.math.BigDecimal;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -51,7 +50,7 @@ public class Customer {
 	public void setTurnover(BigDecimal turnover) {
 		this.turnover = turnover;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
