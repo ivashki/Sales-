@@ -30,7 +30,7 @@ public class Sale {
 	private BigDecimal points;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "customer_id", nullable = false)
+	@JoinColumn(name = "customer_id", nullable = false, updatable = false)
 	private Customer customer;
 
 	public BigDecimal getPoints() {

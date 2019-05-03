@@ -15,14 +15,14 @@ public class SaleDTO2 {
 	private ModelMapper modelMapper = new ModelMapper();
 
 	@NotNull
-	private BigDecimal price;
+	private BigDecimal salePrice;
 
-	public BigDecimal getPrice() {
-		return price;
+	public BigDecimal getSalePrice() {
+		return salePrice;
 	}
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
+	public void setSalePrice(BigDecimal salePrice) {
+		this.salePrice = salePrice;
 	}
 
 	public Sale convertToSale() {

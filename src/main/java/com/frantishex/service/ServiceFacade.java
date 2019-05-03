@@ -39,13 +39,12 @@ public class ServiceFacade {
 
 	}
 
-	/*
-	 * public Sale createSale(Sale sale) throws NotFoundException {
-	 * 
-	 * Sale bate = ss.createSale(sale); return bate;
-	 * 
-	 * }
-	 */
+	public Sale createSale(Sale sale) throws NotFoundException {
+
+		Sale bate = ss.createSale(sale);
+		return bate;
+
+	}
 
 	public Customer createCustomer(Customer customer) throws NotFoundException {
 		Customer bate = cs.createCustomer(customer);

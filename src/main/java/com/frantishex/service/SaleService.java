@@ -58,6 +58,36 @@ public class SaleService {
 		return getSaleById(id);
 	}
 
+	public void setThePoints(Sale sale, Customer customer) {
+		sale.setPoints(sale.getNewPrice().multiply(customer.getMerchant().getScale()));
+
+		customer.setPointsForDiscount(sale.getPoints().add(customer.getPointsForDiscount()));
+	}
+
+	public void setTheCustomer(Sale sale, Customer customer) {
+		sale.setCustomer(customer);
+	}
+
+	public void setTheTurnover(Sale sale, Customer customer) {
+		customer.setTurnover(cs.setTurnover(sale, customer));
+	}
+
+	public void SaleSetter(Sale sale, Customer customer) {
+		if (customer.getTier().equals("default")) {
+
+			sale.setDiscount(customer.getMerchant().getGlobalDiscount());
+
+		} else {
+
+			sale.setDiscount(cs.getDiscountFromTier(customer));
+			customer.setTierDiscount(cs.getDiscountFromTier(customer));
+
+		}
+		if (customer.getSpecificDiscount().compareTo(new BigDecimal("0")) > 0) {
+			sale.setDiscount(customer.getSpecificDiscount());
+		}
+	}
+
 	public Sale makeSaleForCustomer(Sale sale) throws NotFoundException {
 
 		if (cs.getCustomerById(sale.getCustomer().getId()) == null) {
@@ -67,43 +97,34 @@ public class SaleService {
 
 			Customer customer = cs.getCustomerById(sale.getCustomer().getId());
 
-			if (customer.getTier().equals("default")) {
+			SaleSetter(sale, customer);
 
-				sale.setDiscount(customer.getMerchant().getGlobalDiscount());
-
-			} else {
-
-				sale.setDiscount(cs.getDiscountFromTier(customer));
-				customer.setTierDiscount(cs.getDiscountFromTier(customer));
-
-			}
-			if (customer.getSpecificDiscount().compareTo(new BigDecimal("0")) > 0) {
-				sale.setDiscount(customer.getSpecificDiscount());
-			}
-
-			customer.setTurnover(cs.setTurnover(sale, customer));
+			setTheTurnover(sale, customer);
 
 			cs.makeTier(customer);
 
 			setTheNewPrice(sale);
 
-			sale.setCustomer(customer);
+			setTheCustomer(sale, customer);
 
-			sale.setPoints(sale.getNewPrice().multiply(customer.getMerchant().getScale()));
-
-			customer.setPointsForDiscount(sale.getPoints().add(customer.getPointsForDiscount()));
+			setThePoints(sale, customer);
 
 			em.persist(sale);
+
 			return sale;
 		}
 
 	}
 
-	/*
-	 * public Sale createSale(Sale sale) {
-	 * 
-	 * em.persist(sale);
-	 * 
-	 * return sale; }
-	 */
+	public Sale createSale(Sale sale) {
+
+		sale.setNewPrice(sale.getSalePrice());
+		sale.setCustomer(null);
+		sale.setDiscount(null);
+		sale.setPoints(null);
+		em.persist(sale);
+
+		return sale;
+	}
+
 }

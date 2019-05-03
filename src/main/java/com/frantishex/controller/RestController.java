@@ -41,14 +41,14 @@ public class RestController {
 		sf.updateGlobalDiscountForMerchant(id, value);
 		return new ResponseEntity<String>("Global Discount updated succesfully.", HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/updateScaleForMerchant", method = RequestMethod.POST)
 
 	public ResponseEntity<String> updateScaleForMerchant(@RequestBody Long id, BigDecimal value) {
 		sf.updateScaleForMerchant(id, value);
 		return new ResponseEntity<String>("Scale updated succesfully.", HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/updateDiscountForCustomer", method = RequestMethod.POST)
 
 	public ResponseEntity<String> updateDiscountForCustomer(@RequestBody Long id, BigDecimal value) {
@@ -85,12 +85,10 @@ public class RestController {
 
 	}
 
-	/*
-	 * @RequestMapping(value = "/createSale", method = RequestMethod.POST)
-	 * public ResponseEntity<String> createSale(@RequestBody SaleDTO2 saleDTO2)
-	 * throws NotFoundException { sf.createSale(saleDTO2.convertToSale());
-	 * return new ResponseEntity<String>("Sale made succesfully.",
-	 * HttpStatus.OK); }
-	 */
+	@RequestMapping(value = "/createSale", method = RequestMethod.POST)
+	public ResponseEntity<String> createSale(@RequestBody SaleDTO2 saleDTO2) throws NotFoundException {
+		sf.createSale(saleDTO2.convertToSale());
+		return new ResponseEntity<String>("Sale made succesfully.", HttpStatus.OK);
+	}
 
 }
