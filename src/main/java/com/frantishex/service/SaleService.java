@@ -70,19 +70,17 @@ public class SaleService {
 			if (customer.getTier().equals("default")) {
 
 				sale.setDiscount(customer.getMerchant().getGlobalDiscount());
-				/*
-				 * customer.setDiscount(customer.getMerchant().getGlobalDiscount
-				 * ());
-				 */
+
 			} else {
 
 				sale.setDiscount(cs.getDiscountFromTier(customer));
-				/* customer.setDiscount(cs.getDiscountFromTier(customer)); */
+				customer.setTierDiscount(cs.getDiscountFromTier(customer));
 
 			}
-			if (customer.getDiscount() != null) {
-				sale.setDiscount(customer.getDiscount()); //
+			if (customer.getSpecificDiscount().compareTo(new BigDecimal("0")) > 0) {
+				sale.setDiscount(customer.getSpecificDiscount());
 			}
+
 			customer.setTurnover(cs.setTurnover(sale, customer));
 
 			cs.makeTier(customer);
@@ -90,6 +88,10 @@ public class SaleService {
 			setTheNewPrice(sale);
 
 			sale.setCustomer(customer);
+
+			sale.setPoints(sale.getNewPrice().multiply(customer.getMerchant().getScale()));
+
+			customer.setPointsForDiscount(sale.getPoints().add(customer.getPointsForDiscount()));
 
 			em.persist(sale);
 			return sale;

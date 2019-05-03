@@ -27,9 +27,19 @@ public class Sale {
 	@JsonIgnore
 	private BigDecimal newPrice;
 
+	private BigDecimal points;
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
+
+	public BigDecimal getPoints() {
+		return points;
+	}
+
+	public void setPoints(BigDecimal points) {
+		this.points = points;
+	}
 
 	public BigDecimal getSalePrice() {
 		return salePrice;

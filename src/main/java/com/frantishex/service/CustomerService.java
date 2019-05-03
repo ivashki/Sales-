@@ -31,7 +31,7 @@ public class CustomerService {
 	}
 
 	public Customer getCustomerById(Long id) {
-		// return em.find(Customer.class, id);
+
 		TypedQuery<Customer> query = em.createQuery("SELECT c FROM Customer c WHERE c.id=?1", Customer.class);
 		return query.setParameter(1, id).getSingleResult();
 
@@ -61,21 +61,21 @@ public class CustomerService {
 	}
 
 	public Customer createCustomer(Customer customer) throws NotFoundException {
-		
+
 		if (ms.getMerchantById(customer.getMerchant().getId()) == null) {
 			throw new NotFoundException("Merchant not found!");
 		}
 		Merchant merchant = ms.getMerchantById(customer.getMerchant().getId());
 		customer.setMerchant(merchant);
 		customer.setTurnover(customer.ZERO);
-		customer.setDiscount(customer.ZERO);
+		customer.setGlobalDiscount(merchant.getGlobalDiscount());
+		customer.setSpecificDiscount(customer.ZERO);
+		customer.setTierDiscount(customer.ZERO);
+		customer.setPointsForDiscount(customer.ZERO);
 		customer.setTier("default");
 		em.merge(customer);
 		return customer;
 	}
-	
-	
-	
 
 	public void makeTier(Customer customer) {
 		if (customer.getTurnover().compareTo(new BigDecimal(100)) > 0
@@ -95,9 +95,9 @@ public class CustomerService {
 
 	public void updateDiscount(Long id, BigDecimal value) {
 		Customer customer = getCustomerById(id);
-		customer.setDiscount(value);
+		customer.setSpecificDiscount(value);
 		em.merge(customer);
-		
+
 	}
 
 }

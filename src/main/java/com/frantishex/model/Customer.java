@@ -1,4 +1,4 @@
- package com.frantishex.model;
+package com.frantishex.model;
 
 import java.math.BigDecimal;
 
@@ -26,10 +26,17 @@ public class Customer {
 	private String name;
 
 	@JsonIgnore
-	private BigDecimal discount;
+	private BigDecimal globalDiscount;
+	@JsonIgnore
+	private BigDecimal specificDiscount;
+	@JsonIgnore
+	private BigDecimal tierDiscount;
 
 	@JsonIgnore
 	private String Tier;
+
+	@JsonIgnore
+	private BigDecimal pointsForDiscount;
 
 	@JsonIgnore
 	private BigDecimal turnover;
@@ -37,6 +44,38 @@ public class Customer {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "merchant_id", nullable = false)
 	private Merchant merchant;
+
+	public BigDecimal getPointsForDiscount() {
+		return pointsForDiscount;
+	}
+
+	public void setPointsForDiscount(BigDecimal pointsForDiscount) {
+		this.pointsForDiscount = pointsForDiscount;
+	}
+
+	public BigDecimal getGlobalDiscount() {
+		return globalDiscount;
+	}
+
+	public void setGlobalDiscount(BigDecimal globalDiscount) {
+		this.globalDiscount = globalDiscount;
+	}
+
+	public BigDecimal getSpecificDiscount() {
+		return specificDiscount;
+	}
+
+	public void setSpecificDiscount(BigDecimal specificDiscount) {
+		this.specificDiscount = specificDiscount;
+	}
+
+	public BigDecimal getTierDiscount() {
+		return tierDiscount;
+	}
+
+	public void setTierDiscount(BigDecimal tierDiscount) {
+		this.tierDiscount = tierDiscount;
+	}
 
 	public Merchant getMerchant() {
 		return merchant;
@@ -68,15 +107,6 @@ public class Customer {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public BigDecimal getDiscount() {
-		return discount;
-	}
-
-	@JsonIgnore
-	public void setDiscount(BigDecimal discount) {
-		this.discount = discount;
 	}
 
 	public String getTier() {

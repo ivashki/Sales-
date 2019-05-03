@@ -19,6 +19,16 @@ public class Merchant {
 
 	private BigDecimal globalDiscount;
 
+	private BigDecimal Scale;
+
+	public BigDecimal getScale() {
+		return Scale;
+	}
+
+	public void setScale(BigDecimal scale) {
+		Scale = scale;
+	}
+
 	public BigDecimal getGlobalDiscount() {
 		return globalDiscount;
 	}

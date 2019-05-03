@@ -39,12 +39,13 @@ public class ServiceFacade {
 
 	}
 
-	/*public Sale createSale(Sale sale) throws NotFoundException {
-
-		Sale bate = ss.createSale(sale);
-		return bate;
-
-	}*/
+	/*
+	 * public Sale createSale(Sale sale) throws NotFoundException {
+	 * 
+	 * Sale bate = ss.createSale(sale); return bate;
+	 * 
+	 * }
+	 */
 
 	public Customer createCustomer(Customer customer) throws NotFoundException {
 		Customer bate = cs.createCustomer(customer);
@@ -73,11 +74,16 @@ public class ServiceFacade {
 
 	public void updateGlobalDiscountForMerchant(Long id, BigDecimal value) {
 		ms.updateGlobalDiscount(id, value);
-		
+
 	}
 
 	public void updatelDiscountForCustomer(Long id, BigDecimal value) {
-		cs.updateDiscount(id,value);
+		cs.updateDiscount(id, value);
+	}
+
+	public void updateScaleForMerchant(Long id, BigDecimal value) {
+		ms.updateScale(id, value);
+
 	}
 
 }

@@ -19,6 +19,16 @@ public class MerchantDTO {
 
 	@NotNull
 	private BigDecimal globalDiscount;
+	@NotNull
+	private BigDecimal Scale;
+
+	public BigDecimal getScale() {
+		return Scale;
+	}
+
+	public void setScale(BigDecimal scale) {
+		Scale = scale;
+	}
 
 	public BigDecimal getGlobalDiscount() {
 		return globalDiscount;

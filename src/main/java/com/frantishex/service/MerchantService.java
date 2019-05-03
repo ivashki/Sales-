@@ -41,4 +41,11 @@ public class MerchantService {
 		em.merge(merchant);
 	}
 
+	public void updateScale(Long id, BigDecimal value) {
+		Merchant merchant = getMerchantById(id);
+		merchant.setScale(value);
+		em.merge(merchant);
+
+	}
+
 }

@@ -42,6 +42,13 @@ public class RestController {
 		return new ResponseEntity<String>("Global Discount updated succesfully.", HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/updateScaleForMerchant", method = RequestMethod.POST)
+
+	public ResponseEntity<String> updateScaleForMerchant(@RequestBody Long id, BigDecimal value) {
+		sf.updateScaleForMerchant(id, value);
+		return new ResponseEntity<String>("Scale updated succesfully.", HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/updateDiscountForCustomer", method = RequestMethod.POST)
 
 	public ResponseEntity<String> updateDiscountForCustomer(@RequestBody Long id, BigDecimal value) {
