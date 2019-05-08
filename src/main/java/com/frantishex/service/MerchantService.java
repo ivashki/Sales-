@@ -14,7 +14,7 @@ import com.frantishex.model.Merchant;
 
 @Service
 @Transactional
-public class MerchantService {
+public class MerchantService extends GenericService<Merchant, Long> {
 	@PersistenceContext
 	EntityManager em;
 

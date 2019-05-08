@@ -18,7 +18,7 @@ import com.frantishex.model.Sale;
 
 @Service
 @Transactional
-public class SaleService {
+public class SaleService extends GenericService<Sale, Long> {
 
 	@PersistenceContext
 	EntityManager em;

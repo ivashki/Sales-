@@ -18,13 +18,19 @@ import com.frantishex.model.Sale;
 
 @Service
 @Transactional
-public class CustomerService {
+public class CustomerService extends GenericService<Customer, Long> {
 
 	@PersistenceContext
 	EntityManager em;
 
 	@Autowired
 	MerchantService ms;
+
+	@Override
+	public Customer findById(Long id) {
+		// TODO Auto-generated method stub
+		return super.findById(id);
+	} // this method is overriden from generic parent class
 
 	public List<Customer> getAll() {
 		return em.createQuery("select c from Customer c", Customer.class).getResultList();

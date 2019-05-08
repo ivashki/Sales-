@@ -67,6 +67,10 @@ public class ServiceFacade {
 		return cs.getCustomerById(id);
 	}
 
+	public Customer getCustomercheById(Long id) {
+		return cs.findById(id);
+	} //this method is using generic service
+
 	public List<Merchant> getAllMerchants() {
 		return ms.getAll();
 	}
