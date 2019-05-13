@@ -17,9 +17,19 @@ public class Merchant {
 
 	private String name;
 
+	private String email;
+
 	private BigDecimal globalDiscount;
 
 	private BigDecimal Scale;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public BigDecimal getScale() {
 		return Scale;

@@ -21,7 +21,7 @@ import com.frantishex.model.dto.CustomerDTO;
 import com.frantishex.model.dto.MerchantDTO;
 import com.frantishex.model.dto.SaleDTO;
 import com.frantishex.model.dto.SaleDTO2;
-import com.frantishex.service.GenericService;
+
 import com.frantishex.service.ServiceFacade;
 
 @org.springframework.web.bind.annotation.RestController
@@ -85,7 +85,7 @@ public class RestController {
 		return new ResponseEntity<>(sf.getAllCustomers(), HttpStatus.OK);
 
 	}
-	
+
 	@RequestMapping(value = "/getCustomerById", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<Customer> getCustomerById(@RequestBody Long id) {
 		return new ResponseEntity<Customer>(sf.getCustomercheById(id), HttpStatus.OK);
@@ -98,4 +98,4 @@ public class RestController {
 		return new ResponseEntity<String>("Sale made succesfully.", HttpStatus.OK);
 	}
 
-}
+ }
