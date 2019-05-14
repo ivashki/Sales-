@@ -25,6 +25,8 @@ public class Customer {
 
 	private String name;
 
+	private String email;
+
 	@JsonIgnore
 	private BigDecimal globalDiscount;
 	@JsonIgnore
@@ -44,6 +46,14 @@ public class Customer {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "merchant_id", nullable = false)
 	private Merchant merchant;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public BigDecimal getPointsForDiscount() {
 		return pointsForDiscount;

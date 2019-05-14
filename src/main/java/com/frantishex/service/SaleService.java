@@ -9,6 +9,8 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.frantishex.exceptions.NotFoundException;
@@ -28,6 +30,9 @@ public class SaleService extends GenericService<Sale, Long> {
 
 	@Autowired
 	MerchantService ms;
+
+	@Autowired
+	NotificationService ns;
 
 	public List<Sale> getAll() {
 		return em.createQuery("select s from Sale s", Sale.class).getResultList();
@@ -110,6 +115,8 @@ public class SaleService extends GenericService<Sale, Long> {
 			setThePoints(sale, customer);
 
 			em.persist(sale);
+
+			ns.sendNotificationForSale(sale, customer);
 
 			return sale;
 		}

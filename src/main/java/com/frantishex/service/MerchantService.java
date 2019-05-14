@@ -10,7 +10,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.frantishex.model.Customer;
 import com.frantishex.model.Merchant;
+import com.frantishex.model.Sale;
+import com.frantishex.model.dto.MerchantDTO;
 
 @Service
 @Transactional
@@ -18,10 +21,18 @@ public class MerchantService extends GenericService<Merchant, Long> {
 	@PersistenceContext
 	EntityManager em;
 
+	/*
+	 * public Merchant getMerchantById(Long id) {
+	 * 
+	 * TypedQuery<Merchant> query =
+	 * em.createQuery("SELECT m FROM Merchant m WHERE m.id=?1", Merchant.class);
+	 * return query.setParameter(1, id).getSingleResult();
+	 * 
+	 * }
+	 */
+	
 	public Merchant getMerchantById(Long id) {
-
-		TypedQuery<Merchant> query = em.createQuery("SELECT m FROM Merchant m WHERE m.id=?1", Merchant.class);
-		return query.setParameter(1, id).getSingleResult();
+		return em.find(Merchant.class, id);
 
 	}
 

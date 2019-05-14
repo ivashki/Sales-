@@ -1,6 +1,5 @@
 package com.frantishex.model.dto;
 
-
 import javax.validation.constraints.NotNull;
 
 import org.modelmapper.ModelMapper;
@@ -18,6 +17,17 @@ public class CustomerDTO {
 
 	@NotNull
 	private String name;
+
+	@NotNull
+	private String email;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public Long getMerchantId() {
 		return merchantId;
