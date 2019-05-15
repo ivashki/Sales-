@@ -17,39 +17,22 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.frantishex.model.Customer;
 import com.frantishex.model.Merchant;
 
 public class MerchantServiceTest {
 
-	@InjectMocks
-	MerchantService ms;
-
 	@Mock
-	EntityManager em;
+	CustomerService cs;
 
-	@Before
-	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-	}
+	@InjectMocks
+	ServiceFacade sf;
 
-	@Test
-	public void testGetMerchantById() {
-
-		Merchant m = new Merchant();
-		m.setId(1L);
-		m.setEmail("gagarin.com");
-		m.setGlobalDiscount(new BigDecimal(16));
-		m.setScale(new BigDecimal(16));
-		m.setName("yury");
-
-		when(em.find(anyObject(), anyLong()));
-
-		Merchant m2 = ms.getMerchantById(1L);
-
-		assertNotNull(m2);
-
-		assertEquals("yury", m2.getName());
-	}
+	// shoild make Test for discount with help from tutorial
+	// :https://javacodehouse.com/blog/mockito-tutorial/?fbclid=IwAR3xS_eY_X9LPetWp0tsVtcbtiZL6L96sY8hd660apG7l6li7R50FcG7PHs
 
 }
