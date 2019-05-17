@@ -1,38 +1,35 @@
 package com.frantishex.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyObject;
-import static org.mockito.Mockito.when;
+import javax.transaction.Transactional;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import com.frantishex.model.Customer;
 import com.frantishex.model.Merchant;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@Transactional()
 public class MerchantServiceTest {
 
-	@Mock
-	CustomerService cs;
+	@Autowired
+	MerchantService merchantService;
 
-	@InjectMocks
-	ServiceFacade sf;
+	@Test(expected = Exception.class)
+	public void test1() throws Exception {
+		Merchant m = new Merchant();
+		m.setName("ivan");
+		merchantService.create(m);
+	}
 
-	// shoild make Test for discount with help from tutorial
-	// :https://javacodehouse.com/blog/mockito-tutorial/?fbclid=IwAR3xS_eY_X9LPetWp0tsVtcbtiZL6L96sY8hd660apG7l6li7R50FcG7PHs
+	@Test(expected = Exception.class)
+	public void test2() throws Exception {
+		Merchant m = new Merchant();
+		m.setName("ivan");
+		merchantService.create(m);
+	}
 
 }

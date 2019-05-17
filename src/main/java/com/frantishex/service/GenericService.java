@@ -21,7 +21,7 @@ public class GenericService<T, K> {
 		this.type = type;
 	}
 
-	public void create(T entity) {
+	public void create(T entity) throws Exception{
 		em.persist(entity);
 	}
 
