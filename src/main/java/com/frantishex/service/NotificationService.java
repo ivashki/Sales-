@@ -7,9 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.frantishex.model.Customer;
-import com.frantishex.model.Merchant;
 import com.frantishex.model.Sale;
-import com.frantishex.model.User;
 
 @Service
 public class NotificationService {

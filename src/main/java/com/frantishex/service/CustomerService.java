@@ -2,6 +2,7 @@ package com.frantishex.service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,6 +21,8 @@ import com.frantishex.model.Sale;
 @Transactional
 public class CustomerService extends GenericService<Customer, Long> {
 
+	private ReentrantLock lock = new ReentrantLock();
+
 	@PersistenceContext
 	EntityManager em;
 
@@ -28,8 +31,9 @@ public class CustomerService extends GenericService<Customer, Long> {
 
 	@Override
 	public Customer findById(Long id) {
-		// TODO Auto-generated method stub
+
 		return super.findById(id);
+
 	} // this method is overriden from generic parent class
 
 	public List<Customer> getAll() {
@@ -96,7 +100,12 @@ public class CustomerService extends GenericService<Customer, Long> {
 	}
 
 	public void updateCustomer(Customer customer) {
-		em.merge(customer);
+		lock.lock();
+		try {
+			em.merge(customer);
+		} finally {
+			lock.unlock();
+		}
 	}
 
 	public void updateDiscount(Long id, BigDecimal value) {
