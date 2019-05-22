@@ -21,8 +21,6 @@ import com.frantishex.model.Sale;
 @Transactional
 public class CustomerService extends GenericService<Customer, Long> {
 
-	private ReentrantLock lock = new ReentrantLock();
-
 	@PersistenceContext
 	EntityManager em;
 
@@ -100,12 +98,9 @@ public class CustomerService extends GenericService<Customer, Long> {
 	}
 
 	public void updateCustomer(Customer customer) {
-		lock.lock();
-		try {
-			em.merge(customer);
-		} finally {
-			lock.unlock();
-		}
+
+		em.merge(customer);
+
 	}
 
 	public void updateDiscount(Long id, BigDecimal value) {
